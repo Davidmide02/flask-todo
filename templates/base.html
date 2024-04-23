@@ -12,6 +12,11 @@
       <div>
         <label for="">Todo title </label>
         <input type="text" name="title" placeholder="add todo ..." />
+        <br>
+        <br>
+        <textarea name="descr" cols="30" rows="10" placeholder="note"></textarea>
+        <br>
+        <br>
         <button type="submit">Add</button>
       </div>
     </form>
@@ -19,14 +24,15 @@
       <h3>Todos</h3>
       {% for x in todo_list %}
        <p>{{x.id}} | {{x.title}}</p>
+       <p>Descr: {{x.description}}</p>
            {% if x.completed == False %}
           <span>Not completed</span>
           {% else %}
           <span>completed</span>
           {% endif %}
 
-          <a href="/update">Update</a>
-          <a href="">Delete</a>
+          <a href="/update/{{x.id}}">Update</a>
+          <a href="/delete/{{x.id}}">Delete</a>
 
 
       {% endfor %} 

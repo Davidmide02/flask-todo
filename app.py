@@ -40,15 +40,41 @@ def index():
 
 @app.route('/add', methods=["POST"])
 def add():
-    # todo_list = Todo.query.all()
-    # print(todo_list)
     title = request.form.get('title')
-    descr= "Hard codoed value decr"
-    new_task = Todo(title=title, description=descr, completed=True)
+    descr= request.form.get('descr')
+    new_task = Todo(title=title, description=descr)
     db.session.add(new_task)
     db.session.commit()
     return redirect(url_for('index'))
-    # return render_template('about.html')
+
+@app.route('/delete/<int:id>')
+def delete(id):
+    task_to_delete = Todo.query.get_or_404(id)
+    try:
+       db.session.delete(task_to_delete)
+       db.session.commit()
+       return redirect('/')
+    except:
+       return "There is a problem deleting"
+    
+
+
+@app.route('/update/<int:id>', methods=['POST', 'GET'])
+def update(id):
+    task_to_update= Todo.query.get_or_404(id)
+    if request.method =='POST':
+       title = request.form.get('title')
+       descr= request.form.get('descr')
+       task_update = Todo(title=title, description=descr)
+       db.session.add(task_update)
+       db.session.commit()
+       return redirect(url_for('index'))
+
+    else:
+        return render_template('update.html', task=task_to_update)
+
+    
+    
 
 
 # @app.route('/update')
