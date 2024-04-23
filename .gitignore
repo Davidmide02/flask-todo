@@ -1,0 +1,27 @@
+
+__pycache__/
+*.py[cod]
+*.log
+*.tmp
+*.swp
+
+# Coverage
+.coverage
+htmlcov/
+
+# IDE
+*.idea/
+.vscode/
+
+# Virtual Env
+.venv/
+env/
+
+# Testing (if separate folder)
+tests/
+
+# Exclude development config (if applicable)
+config_dev.py
+```
+
+**Remember:** This is a starting point. Adjust the `.gitignore` file to fit your specific project requirements.
