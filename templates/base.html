@@ -4,38 +4,74 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Todo app</title>
+    <!-- <link
+      rel="stylesheet"
+      type="text/css"
+      href="semantic/dist/semantic.min.css"
+    /> -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.1/dist/semantic.min.js"></script>
   </head>
-  <body>
-    <h1>Todo App</h1>
-    <p>Todo app with flask shsh</p>
+  <body class="ui container">
+    <h1 class="ui header red">Todo App</h1>
+    <p class="ui header">Todo app with flask</p>
     <form action="/add" method="post">
       <div>
-        <label for="">Todo title </label>
-        <input type="text" name="title" placeholder="add todo ..." />
-        <br>
-        <br>
-        <textarea name="descr" cols="30" rows="10" placeholder="note"></textarea>
-        <br>
-        <br>
-        <button type="submit">Add</button>
+        <label for="" class="ui label yellow">Todo title :</label>
+        <div class="ui input focus loading">
+          <input type="text" name="title" placeholder="add todo ..." />
+        </div>
+        <div class="ui segment">
+          <textarea
+            name="descr"
+            cols="30"
+            rows="10"
+            placeholder="note"
+            class="ui comments"
+          ></textarea>
+        </div>
+
+        <button type="submit" class="ui green button">Add</button>
       </div>
     </form>
-    <div>
-      <h3>Todos</h3>
+    <div class="ui segment">
+      <h3 class="ui header">Todos</h3>
       {% for x in todo_list %}
-       <p>{{x.id}} | {{x.title}}</p>
-       <p>Descr: {{x.description}}</p>
-           {% if x.completed == False %}
-          <span>Not completed</span>
+      <div>
+        <div
+          class="ui step"
+          style="background-color: antiquewhite; padding: 8px; margin: 2px"
+        >
+          <p class="ui header">
+            <span class="ui label yellow">Tite:</span>{{x.index}} | {{x.title}}
+          </p>
+          <p><span class="ui label grey">Descr:</span> {{x.description}}</p>
+          {% if x.completed == False %}
+          <a href="/completed/{{x.id}}" class="ui yellow button">
+            <i class="circle outline icon" style="padding: 2px"></i>
+            Not completed
+          </a>
           {% else %}
-          <span>completed</span>
+          <a href="/completed/{{x.id}}" class="ui gray button">
+            <i class="check circle icon" style="padding: 2px"></i>
+            completed
+          </a>
           {% endif %}
 
-          <a href="/update/{{x.id}}">Update</a>
-          <a href="/delete/{{x.id}}">Delete</a>
-
-
-      {% endfor %} 
+          <a href="/update/{{x.id}}" class="ui blue button">
+            <i class="edit icon" style="padding: 2px"></i>
+            Update
+          </a>
+          <a href="/delete/{{x.id}}" class="ui red button">
+            <i class="trash icon" style="padding: 2px"></i>
+            Delete
+          </a>
+        </div>
+        {% endfor %}
+      </div>
     </div>
   </body>
 </html>

@@ -18,10 +18,6 @@ class Todo(db.Model):
     description = db.Column(db.Text)
     completed = db.Column(db.Boolean, default=False)
 
-    def __repr__(self):
-       return f'<Todo {self.title}'
-
-
 
 
 @app.route('/', methods=["POST","GET"])
@@ -72,6 +68,15 @@ def update(id):
 
     else:
         return render_template('update.html', task=task_to_update)
+    
+@app.route('/completed/<int:id>', methods=['POST', 'GET'])
+def completed(id):
+    task_to_complete = Todo.query.get_or_404(id)
+    task_to_complete.completed = not task_to_complete.completed
+    db.session.commit()
+    return redirect(url_for('index'))
+
+
 
     
     
