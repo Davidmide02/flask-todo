@@ -48,6 +48,7 @@ def delete(id):
     task_to_delete = Todo.query.get_or_404(id)
     try:
        db.session.delete(task_to_delete)
+    #    db.session.a
        db.session.commit()
        return redirect('/')
     except:
@@ -61,8 +62,10 @@ def update(id):
     if request.method =='POST':
        title = request.form.get('title')
        descr= request.form.get('descr')
-       task_update = Todo(title=title, description=descr)
-       db.session.add(task_update)
+    #    task_update = Todo(title = title, description = descr)
+       task_to_update.title = title
+       task_to_update.description = descr 
+    #    db.session.add(task_update)
        db.session.commit()
        return redirect(url_for('index'))
 
@@ -76,7 +79,13 @@ def completed(id):
     db.session.commit()
     return redirect(url_for('index'))
 
-
+# Update the task object
+        # task_to_update.title = title
+        # task_to_update.description = descr
+        
+        # Commit the changes to the database
+        # db.session.commit()
+        
 
     
     
